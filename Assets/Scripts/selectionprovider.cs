@@ -9,31 +9,22 @@ public class selectionprovider : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        //herocolor = GameObject.FindGameObjectWithTag("hero").GetComponent<Renderer>().material.GetColor("_Color");
         selectedheros = new List<GameObject>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        Debug.Log(selectedheros.Count);
-        //if (selectedheros.Count > 0)
-        //{
-        //    foreach (GameObject hero in selectedheros)
-        //    {
-        //        if (hero.GetComponent<herobehav>().isselected == true)
-        //            hero.GetComponent<Renderer>().material.color = new Color(1F, 1F, 1F);
-        //        else
-        //            hero.GetComponent<Renderer>().material.color = herocolor;
-        //    }
-        //}
+        //Debug.Log(selectedheros.Count);
 	}
 
     void OnTriggerEnter(Collider coll)
     {
-        if (coll.gameObject.tag == "hero")
+        if (coll.gameObject.tag == "hero" && coll.gameObject.GetComponent<herobehav2>().isselected == false)
         {
+            //Debug.Log(coll.gameObject.tag);
             selectedheros.Add(coll.gameObject);
-            coll.gameObject.GetComponent<herobehav>().isselected = true;
-        }
+            coll.gameObject.GetComponent<herobehav2>().isselected = true;
+            //Debug.Log(selectedheros.Count);
+        }   
     }
 }

@@ -12,11 +12,11 @@ public class gamebehav : MonoBehaviour {
     void Start () {
         for (int i = 0; i < no_heros; i++)
         {
-            GameObject heros = Instantiate(hero, new Vector3(Random.Range(10, 40), 5, Random.Range(10, 40)), new Quaternion()) as GameObject;
+            Instantiate(hero, new Vector3(Random.Range(10, 40), 1, Random.Range(10, 40)), new Quaternion());
         }
         for (int i = 0; i < no_enemies; i++)
         {
-            GameObject enemies = Instantiate(enemy, new Vector3(Random.Range(-10, -40), 5, Random.Range(-10, -40)), new Quaternion()) as GameObject;
+            Instantiate(enemy, new Vector3(Random.Range(-10, -40), 1, Random.Range(-10, -40)), new Quaternion());
         }
     }
 	

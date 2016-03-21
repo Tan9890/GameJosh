@@ -1,14 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class enemybehav : MonoBehaviour {
     GameObject hero_target;
     public float speed = 2f;
     float step;
-    public int attack_dist = 5;
-    public int dmg = 10;
+    public float attack_dist = 10.0F;
+    public int dmg = -10;
     public int health = 100;
     bool isattacking = false;
+    public float attackinterval = 1.0f;
+    float attacktime = 0;
 
     // Use this for initialization
     void Start()
@@ -24,7 +27,7 @@ public class enemybehav : MonoBehaviour {
         {
             if (hero_target == null)
             {
-                hero_target = GameObject.FindGameObjectWithTag("hero");
+                hero_target = GetNearest();
             }
             else
             {
@@ -37,7 +40,11 @@ public class enemybehav : MonoBehaviour {
                 else
                 {
                     isattacking = true;
-                    hero_target.GetComponent<herobehav>().health -= dmg;
+                    if (Time.time > attacktime && hero_target != null)
+                    {
+                        hero_target.GetComponent<enemybehav>().health += dmg;
+                        attacktime = Time.time + attackinterval;
+                    }
                 }
             }
         }
@@ -45,5 +52,22 @@ public class enemybehav : MonoBehaviour {
         {
             GameObject.Destroy(this.gameObject);
         }
+    }
+
+    GameObject GetNearest()
+    {
+        GameObject[] herosinscene = GameObject.FindGameObjectsWithTag("hero");
+        //Debug.Log(herosinscene.Length);
+        float nearest = Mathf.Infinity;
+        GameObject nearest_hero = null;
+        for(int i=0;i<herosinscene.Length;i++)
+        {
+            if (Vector3.Distance(transform.position, herosinscene[i].transform.position) <= nearest)
+            {
+                Debug.Log(Vector3.Distance(transform.position, herosinscene[i].transform.position));
+                nearest_hero = herosinscene[i];
+            }
+        }
+        return nearest_hero;
     }
 }
